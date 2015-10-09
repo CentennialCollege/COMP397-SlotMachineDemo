@@ -1,4 +1,4 @@
-# COMP397-SlotMachineDemol
+# COMP397-SlotMachineDemo
 
 ##Assignment 2 - SlotMachine
 
