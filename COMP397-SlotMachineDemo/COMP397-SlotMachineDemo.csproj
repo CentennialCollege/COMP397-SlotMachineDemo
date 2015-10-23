@@ -121,6 +121,7 @@
     <TypeScriptCompile Include="Scripts\objects\gameobject.ts" />
     <TypeScriptCompile Include="Scripts\objects\label.ts" />
     <TypeScriptCompile Include="Scripts\objects\scene.ts" />
+    <TypeScriptCompile Include="Scripts\objects\spritebutton.ts" />
     <TypeScriptCompile Include="Scripts\states\game.ts" />
     <TypeScriptCompile Include="Scripts\states\menu.ts" />
     <TypeScriptCompile Include="Scripts\states\over.ts" />

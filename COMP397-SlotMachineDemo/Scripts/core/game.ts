@@ -9,6 +9,7 @@
 /// <reference path="../typings/preloadjs/preloadjs.d.ts" />
 
 /// <reference path="../objects/gameobject.ts" />
+/// <reference path="../objects/spritebutton.ts" />
 
 /// <reference path="../objects/label.ts" />
 /// <reference path="../objects/button.ts" />
