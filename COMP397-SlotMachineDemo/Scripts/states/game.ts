@@ -2,6 +2,8 @@
     // GAME CLASS
     export class Game extends objects.Scene {
         // PRIVATE INSTANCE VARIABLES
+
+        // UI OBJECTS ++++++++++++++++++++++++++++++++++++++
         private _slotMachine: createjs.Container;
         private _background: createjs.Bitmap;
         private _bet1Button: objects.SpriteButton;
@@ -15,6 +17,10 @@
         private _tile3: objects.GameObject;
 
         private _betLine: objects.GameObject;
+
+        // GAME VARIABLES
+
+        private _spinResult: string[];
 
         // CONSTRUCTOR
         constructor() {
@@ -75,8 +81,69 @@
             console.log("bet 1");
         }
 
+        /* Utility function to check if a value falls within a range of bounds */
+        private _checkRange(value:number, lowerBounds:number, upperBounds:number):number {
+            return (value >= lowerBounds && value <= upperBounds) ? value : -1;
+        }
+
+        /* When this function is called it determines the betLine results.
+        e.g. Bar - Orange - Banana */
+        private _reels(): string[] {
+        var betLine: string[] = [" ", " ", " "];
+        var outCome: number[] = [0, 0, 0];
+
+        for (var reel = 0; reel < 3; reel++) {
+            outCome[reel] = Math.floor((Math.random() * 65) + 1);
+            switch (outCome[reel]) {
+                case this._checkRange(outCome[reel], 1, 27):  // 41.5% probability
+                    betLine[reel] = "blank";
+                    //blanks++;
+                    break;
+                case this._checkRange(outCome[reel], 28, 37): // 15.4% probability
+                    betLine[reel] = "grapes";
+                    //grapes++;
+                    break;
+                case this._checkRange(outCome[reel], 38, 46): // 13.8% probability
+                    betLine[reel] = "banana";
+                   // bananas++;
+                    break;
+                case this._checkRange(outCome[reel], 47, 54): // 12.3% probability
+                    betLine[reel] = "orange";
+                    //oranges++;
+                    break;
+                case this._checkRange(outCome[reel], 55, 59): //  7.7% probability
+                    betLine[reel] = "cherry";
+                    //cherries++;
+                    break;
+                case this._checkRange(outCome[reel], 60, 62): //  4.6% probability
+                    betLine[reel] = "bar";
+                    //bars++;
+                    break;
+                case this._checkRange(outCome[reel], 63, 64): //  3.1% probability
+                    betLine[reel] = "bell";
+                    //bells++;
+                    break;
+                case this._checkRange(outCome[reel], 65, 65): //  1.5% probability
+                    betLine[reel] = "seven";
+                    //sevens++;
+                    break;
+            }
+        }
+        return betLine;
+    }
+
+
+
         //WORKHORSE OF THE GAME
         private _spinButtonClick(event: createjs.MouseEvent): void {
+            this._spinResult = this._reels();
+
+            this._tile1.gotoAndStop(this._spinResult[0]);
+            this._tile2.gotoAndStop(this._spinResult[1]);
+            this._tile3.gotoAndStop(this._spinResult[2]);
+
+
+            console.log(this._spinResult[0] + " - " + this._spinResult[1] + " - " + this._spinResult[2]);
         }
 
 

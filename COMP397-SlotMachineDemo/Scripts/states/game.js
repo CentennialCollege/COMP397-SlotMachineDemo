@@ -49,8 +49,61 @@ var states;
         Game.prototype._clickBet1Button = function (event) {
             console.log("bet 1");
         };
+        /* Utility function to check if a value falls within a range of bounds */
+        Game.prototype._checkRange = function (value, lowerBounds, upperBounds) {
+            return (value >= lowerBounds && value <= upperBounds) ? value : -1;
+        };
+        /* When this function is called it determines the betLine results.
+        e.g. Bar - Orange - Banana */
+        Game.prototype._reels = function () {
+            var betLine = [" ", " ", " "];
+            var outCome = [0, 0, 0];
+            for (var reel = 0; reel < 3; reel++) {
+                outCome[reel] = Math.floor((Math.random() * 65) + 1);
+                switch (outCome[reel]) {
+                    case this._checkRange(outCome[reel], 1, 27):
+                        betLine[reel] = "blank";
+                        //blanks++;
+                        break;
+                    case this._checkRange(outCome[reel], 28, 37):
+                        betLine[reel] = "grapes";
+                        //grapes++;
+                        break;
+                    case this._checkRange(outCome[reel], 38, 46):
+                        betLine[reel] = "banana";
+                        // bananas++;
+                        break;
+                    case this._checkRange(outCome[reel], 47, 54):
+                        betLine[reel] = "orange";
+                        //oranges++;
+                        break;
+                    case this._checkRange(outCome[reel], 55, 59):
+                        betLine[reel] = "cherry";
+                        //cherries++;
+                        break;
+                    case this._checkRange(outCome[reel], 60, 62):
+                        betLine[reel] = "bar";
+                        //bars++;
+                        break;
+                    case this._checkRange(outCome[reel], 63, 64):
+                        betLine[reel] = "bell";
+                        //bells++;
+                        break;
+                    case this._checkRange(outCome[reel], 65, 65):
+                        betLine[reel] = "seven";
+                        //sevens++;
+                        break;
+                }
+            }
+            return betLine;
+        };
         //WORKHORSE OF THE GAME
         Game.prototype._spinButtonClick = function (event) {
+            this._spinResult = this._reels();
+            this._tile1.gotoAndStop(this._spinResult[0]);
+            this._tile2.gotoAndStop(this._spinResult[1]);
+            this._tile3.gotoAndStop(this._spinResult[2]);
+            console.log(this._spinResult[0] + " - " + this._spinResult[1] + " - " + this._spinResult[2]);
         };
         return Game;
     })(objects.Scene);
